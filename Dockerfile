@@ -19,6 +19,6 @@ COPY entrypoint.sh /opt/entrypoint.sh
 ADD templates /templates
 
 # There is an expose in nginx:alpine image
-# EXPOSE 80 443
+EXPOSE 80 443
 
 ENTRYPOINT ["/opt/entrypoint.sh"]
