@@ -120,7 +120,7 @@ if [ $fresh = true ]; then
  echo "certbot certonly "${letscmd}" \
   --standalone --text \
   "${SERVER}" \
-  --email "${EMAIL}" --agree-tos --rsa-key-size 4096 \
+  --email "${EMAIL}" --agree-tos --rsa-key-size "${TLS_RSA_SIZE_IN_BYTES}" \
   --expand " > /etc/nginx/lets
   
   echo "Running initial certificate request... "

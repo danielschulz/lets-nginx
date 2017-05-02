@@ -1,5 +1,5 @@
 FROM nginx:alpine
-MAINTAINER Ash Wilson <smashwilson@gmail.com>
+MAINTAINER Ash Wilson <smashwilson@gmail.com>, Daniel Schulz <danielschulz2005@hotmail.com>
 
 #We need to install bash to easily handle arrays
 # in the entrypoint.sh script
@@ -17,6 +17,8 @@ RUN mkdir -p /etc/letsencrypt/webrootauth
 
 COPY entrypoint.sh /opt/entrypoint.sh
 ADD templates /templates
+
+ARG TLS_RSA_SIZE_IN_BYTES=4096
 
 # There is an expose in nginx:alpine image
 EXPOSE 80 443
