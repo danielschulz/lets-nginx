@@ -46,7 +46,7 @@ if [ ! -f /etc/ssl/dhparams.pem ]; then
   if [ -f /cache/dhparams.pem ]; then
     cp /cache/dhparams.pem /etc/ssl/dhparams.pem
   else
-    openssl dhparam -out /etc/ssl/dhparams.pem 2048
+    openssl dhparam -out /etc/ssl/dhparams.pem "${TLS_RSA_SIZE_IN_BYTES}"
     # Cache to a volume for next time?
     if [ -d /cache ]; then
       cp /etc/ssl/dhparams.pem /cache/dhparams.pem
