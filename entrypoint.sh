@@ -21,7 +21,7 @@ if [ "${MISSING}" != "" ]; then
 DOMAINSARRAY=($(echo "${DOMAIN}" | awk -F ";" '{for(i=1;i<=NF;i++) print $i;}'))
 echo "Provided domains"
 printf "%s\n" "${DOMAINSARRAY[@]}"
-  
+
 #Processing UPSTREAM into an array
 UPSTREAMARRAY=($(echo "${UPSTREAM}" | awk -F ";" '{for(i=1;i<=NF;i++) print $i;}'))
 echo "Services to reverse-proxy"
