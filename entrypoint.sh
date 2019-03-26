@@ -15,7 +15,7 @@ if [ "${MISSING}" != "" ]; then
   echo "Missing required environment variables:" >&2
   echo " ${MISSING}" >&2
   exit 1 
-  fi
+fi
 
 #Processing DOMAIN into an array
 DOMAINSARRAY=($(echo "${DOMAIN}" | awk -F ";" '{for(i=1;i<=NF;i++) print $i;}'))
@@ -68,7 +68,7 @@ mkdir -p /etc/nginx/vhosts/
   dest="/etc/nginx/nginx.conf"
   echo "Rendering template of nginx.conf"
   sed -e "s/\${DOMAIN}/${DOMAIN}/g" \
-      -e "s/\${UPSTREAM}/${UPSTREAM}/" \
+      -e "s/\${UPSTREAM}/${UPSTREAM}/g" \
       /templates/nginx.conf > "$dest"
 
 
@@ -91,6 +91,9 @@ do
       -e "s/\${PATH}/${DOMAINSARRAY[0]}/" \
       "$src" > "$dest"
 
+  echo "#${upstreamId} ----"
+  cat "$dest"
+  echo "#${upstreamId} ----"
   upstreamId=$((upstreamId+1))
 
   #prepare the letsencrypt command arguments
@@ -103,11 +106,11 @@ if [ ! -f /etc/letsencrypt/san_list ]; then
  "${DOMAIN}"
 EOF
   fresh=true
-else 
+else
   old_san=$(cat /etc/letsencrypt/san_list)
   if [ "${DOMAIN}" != "${old_san}" ]; then
     fresh=true
-  else 
+  else
     fresh=false
   fi
 fi
@@ -116,13 +119,13 @@ fi
 if [ $fresh = true ]; then
   echo "The SAN list has changed, removing the old certificate and ask for a new one."
   rm -rf /etc/letsencrypt/{live,archive,keys,renewal}
- 
+
  echo "certbot certonly "${letscmd}" \
   --standalone --text \
   "${SERVER}" \
   --email "${EMAIL}" --agree-tos --rsa-key-size "${TLS_RSA_SIZE_IN_BYTES}" \
   --expand " > /etc/nginx/lets
-  
+
   echo "Running initial certificate request... "
   /bin/bash /etc/nginx/lets
 fi
