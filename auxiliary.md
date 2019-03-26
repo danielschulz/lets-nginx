@@ -11,14 +11,14 @@ clear && docker run \
     -e DOMAIN="dsit.local" \
     -e UPSTREAM="hbr.org:443" \
     -e EMAIL="ds@gru.ru" \
-    -e STAGING="1" \
+    -e STAGING="0" \
     -e TLS_RSA_SIZE_IN_BYTES="2048" \
     --name revproxy \
     danielschulz/lets-nginx:latest && \
     sleep 3 && \
     docker logs -f revproxy
 
-# curl https://dsit.local:443
-curl -k https://dsit.local:443
+curl https://www.oksanabogdanova.de:443
+# curl -k https://www.oksanabogdanova.de:443
 
 docker rm -f revproxy
