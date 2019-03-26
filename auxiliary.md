@@ -18,7 +18,7 @@ clear && docker run \
     sleep 3 && \
     docker logs -f revproxy
 
-curl https://www.oksanabogdanova.de:443
-# curl -k https://www.oksanabogdanova.de:443
+curl https://dsit.local:443
+# curl -k https://dsit.local:443
 
 docker rm -f revproxy
