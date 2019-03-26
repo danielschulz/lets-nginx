@@ -8,14 +8,13 @@ MISSING=""
 
 [ -z "${DOMAIN}" ] && MISSING="${MISSING} DOMAIN"
 [ -z "${UPSTREAM}" ] && MISSING="${MISSING} UPSTREAM"
-[ -z "${EMAIL}" ] && MISSING="${MISSING} EMAIL"
 
 
 if [ "${MISSING}" != "" ]; then
   echo "Missing required environment variables:" >&2
   echo " ${MISSING}" >&2
   exit 1 
-  fi
+fi
 
 #Processing DOMAIN into an array
 DOMAINSARRAY=($(echo "${DOMAIN}" | awk -F ";" '{for(i=1;i<=NF;i++) print $i;}'))
@@ -32,27 +31,6 @@ if [ "${#DOMAINSARRAY[@]}" != "${#UPSTREAMARRAY[@]}" ]; then
   echo "The number of domains must match the number of upstream services"
 fi
 
-# Default other parameters
-STAGING=${STAGING:-0}
-if [ "$STAGING" = "1" ] ; then
-    SERVER="--server https://acme-staging.api.letsencrypt.org/directory"
-else
-    SERVER=""
-fi
-
-
-# Generate strong DH parameters for nginx, if they don't already exist.
-if [ ! -f /etc/ssl/dhparams.pem ]; then
-  if [ -f /cache/dhparams.pem ]; then
-    cp /cache/dhparams.pem /etc/ssl/dhparams.pem
-  else
-    # openssl dhparam -out /etc/ssl/dhparams.pem "${TLS_RSA_SIZE_IN_BYTES}"
-    # Cache to a volume for next time?
-    if [ -d /cache ]; then
-      cp /etc/ssl/dhparams.pem /cache/dhparams.pem
-    fi
-  fi
-fi
 
 #create temp file storage
 mkdir -p /var/cache/nginx
@@ -68,7 +46,7 @@ mkdir -p /etc/nginx/vhosts/
   dest="/etc/nginx/nginx.conf"
   echo "Rendering template of nginx.conf"
   sed -e "s/\${DOMAIN}/${DOMAIN}/g" \
-      -e "s/\${UPSTREAM}/${UPSTREAM}/" \
+      -e "s/\${UPSTREAM}/${UPSTREAM}/g" \
       /templates/nginx.conf > "$dest"
 
 
