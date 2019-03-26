@@ -6,10 +6,10 @@ date && \
 
 clear && docker run \
     -d \
-    -p "20602:80" \
-    -p "20708:443" \
-    -e DOMAIN="akpl.local;dsit.local" \
-    -e UPSTREAM="hbr.org:443;heise.de:80" \
+    -p "80:80" \
+    -p "443:443" \
+    -e DOMAIN="dsit.local" \
+    -e UPSTREAM="hbr.org:443" \
     -e EMAIL="ds@gru.ru" \
     -e STAGING="1" \
     -e TLS_RSA_SIZE_IN_BYTES="2048" \
@@ -18,8 +18,7 @@ clear && docker run \
     sleep 3 && \
     docker logs -f revproxy
 
-curl dsit.local:20708
-
-curl akpl.local:20708
+# curl https://dsit.local:443
+curl -k https://dsit.local:443
 
 docker rm -f revproxy
