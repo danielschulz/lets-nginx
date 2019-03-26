@@ -9,7 +9,6 @@ clear && docker run \
     -p "20708:80" \
     -e DOMAIN="akpl.local;dsit.local" \
     -e UPSTREAM="hbr.org:443;heise.de:80" \
-    -e TECH_NGINX_PROXY_READ_TIMEOUT="15" \
     --name revproxy \
     danielschulz/lets-nginx:tls-less && \
     sleep 3 && \
