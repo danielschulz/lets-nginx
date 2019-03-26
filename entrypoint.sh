@@ -9,6 +9,7 @@ MISSING=""
 [ -z "${DOMAIN}" ] && MISSING="${MISSING} DOMAIN"
 [ -z "${UPSTREAM}" ] && MISSING="${MISSING} UPSTREAM"
 [ -z "${EMAIL}" ] && MISSING="${MISSING} EMAIL"
+[ -z "${TLS_RSA_SIZE_IN_BYTES}" ] && MISSING="${MISSING} TLS_RSA_SIZE_IN_BYTES"
 
 
 if [ "${MISSING}" != "" ]; then

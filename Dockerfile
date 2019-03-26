@@ -2,7 +2,7 @@ FROM alpine:3.5
 
 MAINTAINER NGINX Docker Maintainers "docker-maint@nginx.com", Ash Wilson <smashwilson@gmail.com>, Daniel Schulz <danielschulz2005@hotmail.com>
 
-ARG NGINX_VERSION=1.13.0
+ARG NGINX_VERSION=1.15.9
 
 RUN GPG_KEYS=B0F4253373F8F6F510D42178520A9993A1C052F8 \
 	&& CONFIG="\
@@ -157,7 +157,10 @@ RUN mkdir -p /etc/letsencrypt/webrootauth
 COPY entrypoint.sh /opt/entrypoint.sh
 ADD templates /templates
 
-ARG TLS_RSA_SIZE_IN_BYTES=4096
+RUN chown $(id -u):$(id -g) /opt/entrypoint.sh \
+  && chmod 710 /opt/entrypoint.sh
+
+ENV TLS_RSA_SIZE_IN_BYTES=4096
 
 STOPSIGNAL SIGQUIT
 

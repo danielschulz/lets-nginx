@@ -1,3 +1,3 @@
 # ignore IntelliJ IDEA files
-lets-nginx.iml
 .idea/*
+lets-nginx-gitrepo.iml
