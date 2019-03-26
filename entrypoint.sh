@@ -91,6 +91,9 @@ do
       -e "s/\${PATH}/${DOMAINSARRAY[0]}/" \
       "$src" > "$dest"
 
+  echo "#${upstreamId} ----"
+  cat "$dest"
+  echo "#${upstreamId} ----"
   upstreamId=$((upstreamId+1))
 
   #prepare the letsencrypt command arguments
