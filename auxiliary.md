@@ -1,7 +1,7 @@
 
 # Often used commands for Docker
 date && \
-    time docker build -t danielschulz/lets-nginx:latest . && \
+    time docker build -t danielschulz/lets-nginx:dev . && \
     date
 
 clear && docker run \
@@ -11,7 +11,7 @@ clear && docker run \
     -e DOMAIN="dsit.local" \
     -e UPSTREAM="hbr.org:443" \
     -e EMAIL="ds@gru.ru" \
-    -e STAGING="0" \
+    -e STAGING="1" \
     -e TLS_RSA_SIZE_IN_BYTES="2048" \
     --name revproxy \
     danielschulz/lets-nginx:latest && \
