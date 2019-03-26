@@ -19,3 +19,7 @@ curl dsit.local:20708
 curl akpl.local:20708
 
 docker rm -f revproxy
+
+
+docker  login -u danielschulz
+time docker push danielschulz/lets-nginx:tls-less
